@@ -1,0 +1,90 @@
+/* 🌿 FADE IN COM DELAY */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s forwards;
+}
+
+.fade-in-delay {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+/* 🌿 SLIDE UP */
+.slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 0.8s forwards;
+}
+
+/* 🌿 ZOOM IN */
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🌿 FADE LEFT */
+.fade-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: fadeLeft 0.8s forwards;
+}
+
+@keyframes fadeLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 🌿 FADE RIGHT */
+.fade-right {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: fadeRight 0.8s forwards;
+}
+
+@keyframes fadeRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 🌿 RESPONSIVO - garantir suavidade */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in-delay,
+  .slide-up,
+  .zoom-in,
+  .fade-left,
+  .fade-right {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

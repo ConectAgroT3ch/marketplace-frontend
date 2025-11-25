@@ -1,0 +1,204 @@
+/* PÁGINA DE LOGIN/REGISTRO INTEIRA */
+.auth-page {
+  min-height: calc(100vh - 80px); /* desconta o navbar */
+  width: 100%;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+  box-sizing: border-box;
+}
+
+/* BLOCO "Bem-vindo!" DO LADO DE CIMA */
+.auth-hero {
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-hero h2 {
+  color: #004E8A;
+  font-size: 2.1rem;
+  margin-bottom: 8px;
+}
+
+.auth-hero p {
+  margin-bottom: 14px;
+  color: #333;
+}
+
+.auth-hero ul {
+  text-align: left;
+  display: inline-block;
+  margin: 0 0 14px 0;
+  padding-left: 18px;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.auth-info {
+  margin: 0 auto;
+  margin-top: 4px;
+  max-width: 520px;
+  background: #dde5fc;
+  border-left: 4px solid #004E8A;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: #004E8A;
+}
+
+/* CARD DO FORMULÁRIO */
+.auth-container {
+  width: 380px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  /* margin-top: 30px;  <-- REMOVE ESSA LINHA */
+  margin-top: 0;            /* deixa neutro pra funcionar bem com o flex */
+  box-shadow: 0 0 8px rgba(0,0,0,0.08);
+}
+
+
+/* ABAS (Sign In / Create Account) */
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 14px;
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #444;
+  background: transparent;
+  border: none;
+}
+
+.auth-tab.active {
+  border-bottom: 2px solid #004E8A;
+  color: #004E8A;
+}
+
+/* SELETOR DE TIPO DE CONTA (CONSUMIDOR / PRODUTOR) */
+.role-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.role-pill {
+  border: 1px solid #c4c4c4;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.role-pill.selected {
+  background: #004E8A;
+  color: #fff;
+  border-color: #004E8A;
+}
+
+/* INPUTS */
+.auth-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #0fcf6b;
+}
+
+/* WRAPPER PARA ÍCONE DO OLHO */
+.auth-input-wrapper {
+  position: relative;
+}
+
+/* ÍCONE DO OLHO CENTRALIZADO VERTICALMENTE */
+.auth-eyes {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* LINHA DO TELEFONE (DDD + NÚMERO) */
+.auth-phone-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* BOTÃO PRINCIPAL (mantive seu gradient) */
+.auth-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  background: linear-gradient(90deg, #004E8A, #004E8A);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* página usada no esqueceu senha: centraliza o card na tela */
+.auth-page-center {
+  width: 100%;
+  min-height: calc(100vh - 80px); /* 80px = altura do navbar */
+  display: flex;
+  justify-content: center;   /* centraliza na horizontal */
+  align-items: center;       /* centraliza na vertical */
+  padding: 40px 20px 80px;
+  box-sizing: border-box;
+  background: #f8f8f8;       /* mesmo fundo da tela de login */
+}
+
+
+
+
+/* LINK "Forgot your password?" */
+.auth-back-link {
+  font-size: 0.9rem;
+  color: #004E8A;
+  text-decoration: none;
+}
+
+.auth-back-link:hover {
+  text-decoration: underline;
+}
+
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 24px 16px 40px;
+  }
+
+  .auth-container {
+    max-width: 100%;
+    padding: 16px 16px 22px;
+  }
+
+  .auth-hero h2 {
+    font-size: 1.8rem;
+  }
+}

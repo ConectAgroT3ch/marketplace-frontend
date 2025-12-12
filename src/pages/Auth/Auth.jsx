@@ -1,20 +1,24 @@
 // src/pages/Auth/Auth.jsx
+import { useAuth } from "../../context/AuthContext";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import Footer from "../../components/Footer";
+import { mockRegister, mockLogin } from "../../mocks/authMock";
+
 
 export default function AuthPage() {
+  const navigate = useNavigate();
+  const { login } = useAuth(); // <--- pega login do contexto
+
   // aba inicial: Create Account
   const [activeTab, setActiveTab] = useState("register");
-  // tipo de conta
   const [role, setRole] = useState("consumer"); // "consumer" | "producer"
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
-  // estado genérico do formulário
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -28,71 +32,67 @@ export default function AuthPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // REGISTRO
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  // REGISTRO (mock)
+  // REGISTRO (usando mock, sem backend real)
+const handleRegister = async (e) => {
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      alert("As senhas não conferem.");
-      return;
-    }
+  if (form.password !== form.confirmPassword) {
+    alert("As senhas não conferem.");
+    return;
+  }
 
-    try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          role, // "consumer" ou "producer"
-          name: form.name,
-          email: form.email,
-          password: form.password,
-          phone: form.phone,
-          cpf: form.cpf,
-        }),
-      });
+  try {
+    const user = await mockRegister({
+      role,
+      name: form.name,
+      email: form.email,
+      password: form.password,
+      phone: form.phone,
+      cpf: form.cpf,
+    });
 
-      if (response.ok) {
-        alert("Conta criada com sucesso!");
-        // if (role === "consumer") navigate("/home-consumidor");
-        // if (role === "producer") navigate("/home-produtor");
-      } else {
-        const data = await response.json().catch(() => ({}));
-        alert(data.message || "Erro ao criar conta.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Falha ao comunicar com o servidor.");
-    }
-  };
+    console.log("✅ Usuário mock registrado:", user);
 
-  // LOGIN
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    alert("Conta criada (mock) com sucesso! Agora faça login.");
 
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          role, // importante pro backend saber se é produtor ou consumidor
-          email: form.email,
-          password: form.password,
-        }),
-      });
+    // 👉 Volta para a aba de login (Sign In)
+    setActiveTab("login");
 
-      if (response.ok) {
-        alert("Login realizado!");
-        // if (role === "consumer") navigate("/home-consumidor");
-        // if (role === "producer") navigate("/home-produtor");
-      } else {
-        const data = await response.json().catch(() => ({}));
-        alert(data.message || "Credenciais inválidas.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Falha ao comunicar com o servidor.");
-    }
-  };
+    // opcional: limpa só as senhas
+    setForm((prev) => ({
+      ...prev,
+      password: "",
+      confirmPassword: "",
+    }));
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Erro ao criar conta (mock).");
+  }
+};
+
+  // LOGIN (mock)
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const user = await mockLogin({
+      role,
+      email: form.email,
+      password: form.password,
+    });
+
+    console.log("✅ Login mock ok:", user);
+    login(user); // <-- salva no contexto + localStorage
+    alert(`Login mock realizado! Bem-vindo, ${user.name || user.email}.`);
+
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Credenciais inválidas (mock).");
+  }
+};
+
 
   const isRegister = activeTab === "register";
 
@@ -122,7 +122,6 @@ export default function AuthPage() {
 
         {/* Card de login/registro */}
         <div className="auth-container">
-          {/* Abas (Sign In / Create Account) */}
           <div className="auth-tabs">
             <button
               type="button"
@@ -145,18 +144,14 @@ export default function AuthPage() {
             <span>Tipo de conta:</span>
             <button
               type="button"
-              className={`role-pill ${
-                role === "consumer" ? "selected" : ""
-              }`}
+              className={`role-pill ${role === "consumer" ? "selected" : ""}`}
               onClick={() => setRole("consumer")}
             >
               Consumidor
             </button>
             <button
               type="button"
-              className={`role-pill ${
-                role === "producer" ? "selected" : ""
-              }`}
+              className={`role-pill ${role === "producer" ? "selected" : ""}`}
               onClick={() => setRole("producer")}
             >
               Produtor
@@ -164,7 +159,6 @@ export default function AuthPage() {
           </div>
 
           <form onSubmit={isRegister ? handleRegister : handleLogin}>
-            {/* E-mail */}
             <input
               type="email"
               name="email"
@@ -175,7 +169,6 @@ export default function AuthPage() {
               required
             />
 
-            {/* Senha */}
             <div className="auth-input-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
@@ -196,30 +189,26 @@ export default function AuthPage() {
               </span>
             </div>
 
-            {/* Confirmar senha – só no registro */}
-            {isRegister && (
-              <div className="auth-input-wrapper">
-                <input
-                  type={showPassword2 ? "text" : "password"}
-                  name="confirmPassword"
-                  className="auth-input"
-                  placeholder="Repita a senha criada"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
-                <span
-                  className="auth-eyes"
-                  onClick={() => setShowPassword2((prev) => !prev)}
-                >
-                  {showPassword2 ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            )}
-
-            {/* Campos extras – só no registro */}
             {isRegister && (
               <>
+                <div className="auth-input-wrapper">
+                  <input
+                    type={showPassword2 ? "text" : "password"}
+                    name="confirmPassword"
+                    className="auth-input"
+                    placeholder="Repita a senha criada"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  <span
+                    className="auth-eyes"
+                    onClick={() => setShowPassword2((prev) => !prev)}
+                  >
+                    {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+
                 <input
                   type="text"
                   name="name"
@@ -260,12 +249,10 @@ export default function AuthPage() {
               </>
             )}
 
-            {/* Botão principal */}
             <button type="submit" className="auth-btn">
               {isRegister ? "Create Account" : "Sign In"}
             </button>
 
-            {/* Linkzinho embaixo – só no login */}
             {!isRegister && (
               <p style={{ textAlign: "center", marginTop: 10 }}>
                 <Link to="/esqueci-senha" className="auth-back-link">
@@ -277,7 +264,6 @@ export default function AuthPage() {
         </div>
       </div>
 
-      {/* Rodapé padrão do site */}
       <Footer />
     </>
   );

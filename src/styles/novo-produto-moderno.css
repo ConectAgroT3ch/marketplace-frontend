@@ -1,0 +1,253 @@
+/* Variáveis de Cor (para manter consistência) */
+:root {
+  --primary-blue: #004E8A;
+  --primary-green: #0fcf6b;
+  --bg-light: #f5f7fa;
+  --text-dark: #333;
+  --border-color: #e1e5e9;
+}
+
+.novo-produto-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: var(--bg-light);
+  min-height: calc(100vh - 80px);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  color: var(--primary-blue);
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Grid Principal de 2 Colunas */
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; /* Esquerda maior, direita menor */
+  gap: 40px;
+  align-items: start;
+}
+
+/* Cartão do Formulário */
+.form-card-modern {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.form-section {
+  margin-bottom: 35px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 25px;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+.form-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-blue);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+/* Inputs e Labels */
+.input-group-modern {
+  margin-bottom: 20px;
+}
+
+.input-group-modern label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.input-group-modern input,
+.input-group-modern textarea,
+.input-group-modern select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background-color: #fcfcfc;
+}
+
+.input-group-modern input:focus,
+.input-group-modern textarea:focus,
+.input-group-modern select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 78, 138, 0.1);
+  background-color: white;
+}
+
+/* Inputs com ícone dentro */
+.input-with-icon {
+  position: relative;
+}
+
+.field-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* Grid de 2 colunas para campos pequenos (Preço/Unidade) */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Seletor de Categorias Visual */
+.category-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #666;
+  position: relative;
+}
+
+.cat-btn:hover {
+  background-color: #f0f7ff;
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+.cat-btn.active {
+  background-color: #e6f4ea;
+  border-color: var(--primary-green);
+  color: #003300;
+  font-weight: bold;
+}
+
+.check-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: var(--primary-green);
+}
+
+/* Botão de Enviar */
+.btn-submit-modern {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to right, var(--primary-blue), #0062ad);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 78, 138, 0.3);
+}
+
+/* --- SEÇÃO DE PREVIEW (DIREITA) --- */
+.preview-section {
+  position: relative;
+}
+
+.sticky-preview {
+  position: sticky;
+  top: 100px; /* Para ficar fixo ao rolar a página */
+}
+
+.sticky-preview h3 {
+  color: var(--primary-blue);
+  margin-bottom: 10px;
+}
+
+.sticky-preview p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Estilos específicos do Card de Preview */
+.preview-card {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border: none;
+  position: relative;
+}
+
+.preview-category-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 78, 138, 0.9);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.placeholder-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  gap: 10px;
+  background-color: #f0f2f5;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .layout-grid {
+    grid-template-columns: 1fr; /* Empilha em telas menores */
+  }
+  
+  .preview-section {
+    order: -1; /* Mostra o preview primeiro no mobile (opcional) */
+    margin-bottom: 30px;
+  }
+  
+  .sticky-preview {
+    position: static;
+  }
+  
+  .two-col-grid {
+    grid-template-columns: 1fr;
+  }
+}
